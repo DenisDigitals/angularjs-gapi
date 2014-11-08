@@ -31,7 +31,7 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 
 ###Make api requests
 
-*Unauthorized request
+* Unauthorized request
 
 ```javascript
 
@@ -51,7 +51,7 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 
 ```
 
-*Authorized requests
+* Authorized requests
 
 ```javascript
 // see https://developers.google.com/youtube/v3/docs/playlists/list for information about api
