@@ -38,11 +38,14 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 // see https://developers.google.com/youtube/v3/docs/search/list for more information
 angular.module('app').controller('tstController', ['$scope', 'gapi', 'gapiModel', function($scope, gapi, api) {
     // we can get model for gapi request
-    $scope.data = api.$execute("youtube", "v3", "search", "list", {
+    $scope.data = api.$find("youtube", "v3", "search", "list", {
         query: "search term",
         part: "snippet",
         type: "video"
     })
+
+    // also we can query api again (for example: query another path with new pageToken)
+    $scope.data.$query({pageToken: 'someToken'})
 
     // or we can call api directly
     gapi.call("youtube", "v3", "search", "list", {
@@ -77,5 +80,6 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 ### 0.1.0
 * Simple gapi query for authorized and unauthorized requests
 * Only one method gapi.call for get result
-### 0.2.0
+
+### 0.1.1
 * Add model for wrap google api request (see https://www.youtube.com/watch?v=lHbWRFpbma4)
