@@ -1,18 +1,47 @@
 angular.module('gapi').provider('gapi', function() {
 
+    /**
+     * Configuration options for gapi.
+     *
+     * For set config options use
+     *
+     * gapiProvider.apiKey()
+     * gapiProvider.clientId()
+     * gapiProvider.apiScope()
+     *
+     * in you config section
+     *
+     * @type {{}}
+     * @private
+     */
     var _config = {
     };
 
+    /**
+     * Setup api key (use only with gapiProvider)
+     * @param key
+     * @returns {*}
+     */
     this.apiKey = function apiKey(key) {
         _config.api_key = key;
         return this;
     };
 
+    /**
+     * Setup client appliction id (use only with gapiProvider)
+     * @param client_id
+     * @returns {*}
+     */
     this.clientId = function clientId(client_id) {
         _config.client_id = client_id;
         return this;
     };
 
+    /**
+     * Setup you appliction scope (use only with gapiProvider)
+     * @param api_scope
+     * @returns {*}
+     */
     this.apiScope = function apiScope(api_scope) {
         _config.scope = api_scope;
         return this;
@@ -83,9 +112,6 @@ angular.module('gapi').provider('gapi', function() {
         };
 
         return {
-            isApiReady: function isApiReady() {
-                return _apiReady;
-            },
 
             isAuth: function isAuth() {
                 return _loggedIn;

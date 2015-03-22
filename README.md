@@ -7,7 +7,7 @@ This wrapper work with https://developers.google.com/api-client-library/javascri
 
 ## Usage
 
-###Init
+### Init
 
 ```javascript
 angular.module('app').config(['gapiProvider', '$routeProvider', function(gapiProvider, $routeProvider) {
@@ -17,7 +17,7 @@ angular.module('app').config(['gapiProvider', '$routeProvider', function(gapiPro
 }])
 ```
 
-###login
+### login
 
 ```javascript
 angular.module('app').controller('tstController', ['$scope', 'gapi', function($scope, gapi) {
@@ -29,24 +29,29 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 }]);
 ```
 
-###Make api requests
+### Make api requests
 
 * Unauthorized request
 
 ```javascript
 
 // see https://developers.google.com/youtube/v3/docs/search/list for more information
-angular.module('app').controller('tstController', ['$scope', 'gapi', function($scope, gapi) {
-  // we can't make requests while api is not ready
-	if (gapi.isApiReady()) {
-  	gapi.call("youtube", "v3", "search", "list", {
+angular.module('app').controller('tstController', ['$scope', 'gapi', 'gapiModel', function($scope, gapi, api) {
+    // we can get model for gapi request
+    $scope.data = api.$execute("youtube", "v3", "search", "list", {
+        query: "search term",
+        part: "snippet",
+        type: "video"
+    })
+
+    // or we can call api directly
+    gapi.call("youtube", "v3", "search", "list", {
       query: "search term",
       part: "snippet",
       type: "video"
     }).then(function(response) {
       // work with response
     })
-  }
 }]);
 
 ```
@@ -57,7 +62,7 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
 // see https://developers.google.com/youtube/v3/docs/playlists/list for information about api
 angular.module('app').controller('tstController', ['$scope', 'gapi', function($scope, gapi) {
   // we can't make requests while api is not ready and user is not logged in
-	if (gapi.isApiReady() && gapi.isLoggedIn()) {
+  if (gapi.isApiReady() && gapi.isLoggedIn()) {
   	gapi.call("youtube", "v3", "playlists", "list", {
       part: "snippet",
       type: "video"
@@ -67,3 +72,10 @@ angular.module('app').controller('tstController', ['$scope', 'gapi', function($s
   }
 }]);
 ```
+
+## Version history
+### 0.1.0
+* Simple gapi query for authorized and unauthorized requests
+* Only one method gapi.call for get result
+### 0.2.0
+* Add model for wrap google api request (see https://www.youtube.com/watch?v=lHbWRFpbma4)
